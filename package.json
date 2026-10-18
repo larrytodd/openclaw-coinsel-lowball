@@ -1,7 +1,7 @@
 {
   "name": "openclaw-coinsel-lowball",
-  "version": "1.0.0",
-  "description": "Check whether a dealer or pawn shop's cash offer for a coin is fair, using live sold comps and melt value from coinsel.io.",
+  "version": "1.1.0",
+  "description": "Check whether a dealer or pawn shop's cash offer for a coin is fair, get a counter-offer, and find better buyers nearby. Powered by coinsel.io.",
   "type": "module",
   "license": "MIT",
   "author": "Coinsel (https://www.coinsel.io)",

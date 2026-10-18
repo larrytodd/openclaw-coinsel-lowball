@@ -1,9 +1,9 @@
 {
   "id": "coinsel-lowball",
   "name": "Coinsel Lowball Check",
-  "description": "Tells you whether a dealer or pawn shop's cash offer for a coin is fair, using recent sold comps and melt value from coinsel.io.",
+  "description": "Tells you whether a dealer or pawn shop's cash offer for a coin is fair, using recent sold comps, the PCGS price guide and melt value from coinsel.io, and where to get a better offer nearby.",
   "contracts": {
-    "tools": ["coin_lowball_check"]
+    "tools": ["coin_lowball_check", "coin_offer_outcome"]
   },
   "activation": {
     "onStartup": true

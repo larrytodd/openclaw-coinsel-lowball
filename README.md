@@ -1,14 +1,16 @@
 # Coinsel Lowball Check — OpenClaw plugin
 
-**Got a cash offer for a coin? Find out if it's fair before you say yes.**
+**Got a cash offer for a coin? Find out if it's fair, what to counter with, and where to get more — before you say yes.**
 
-Tell your OpenClaw agent what a dealer, pawn shop, or coin-show buyer offered you. The plugin checks recent sold comps and melt value on [coinsel.io](https://www.coinsel.io) and tells you:
+Tell your OpenClaw agent what a dealer, pawn shop, or coin-show buyer offered you. The plugin checks recent sold comps, the PCGS price guide and live melt value on [coinsel.io](https://www.coinsel.io) and gives you:
 
 - 🚩 / ⚠️ / ✅ / 💰 a verdict: lowball, below fair, fair, or strong
-- What the coin has actually sold for recently
-- Melt value (for silver and gold coins)
-- The offer as a percentage of retail
-- A typical fair dealer-offer range, plus a regional comparison when you give a ZIP
+- What the coin is actually worth, and where that number comes from
+- Melt value for silver and gold coins
+- A typical fair dealer-offer range, adjusted for raw vs. certified coins
+- **A counter-offer and exactly what to say**
+- **Nearby dealers and upcoming coin shows** when the offer is low (give a ZIP)
+- How buyers in your area typically price, once enough local data exists
 
 ## Install
 
@@ -20,28 +22,38 @@ No API key or configuration needed.
 
 ## Example
 
-> **You:** The pawn shop offered me $28 for an 1881-S Morgan dollar, looks MS63. I'm in 60025.
+> **You:** The pawn shop offered me $28 for an 1881-S Morgan dollar, PCGS MS63. I'm in 60025.
 >
 > **Agent:** 🚩 Lowball: $28 for 1881-S Morgan dollar (MS63)
-> • Recent retail (sold comps): $105 from 41 sales
-> • Melt value: $24.10
-> • Offer is 27% of retail
-> • Typical fair dealer offer: $65–$85
-> …
+> • Retail value: $110 (PCGS price guide, MS63)
+> • Melt value: $44.22
+> • Offer is 25% of retail
+> • Typical fair dealer offer: $66–$88
+>
+> Counter at $85. What to say: "PCGS guide is $110 on this coin. I can do $85 today."
+>
+> Where to get a better offer:
+> • Dealer: … (2.3 mi)
+> • Coin show: …
 
-## Tool
+Later, tell your agent what happened ("I got $80 at another dealer") and it logs the result.
 
-| Tool | Parameters |
+## Tools
+
+| Tool | What it does |
 |---|---|
-| `coin_lowball_check` | `coin` (required), `offer_usd` (required), `grade`, `zip`, `buyer_type` |
+| `coin_lowball_check` | Prices the offer. Inputs: `coin`, `offer_usd` (required); `grade`, `certified`, `grading_service`, `zip`, `buyer_type`, `offer_channel`, `sale_reason` (optional) |
+| `coin_offer_outcome` | Logs what you did afterwards: sold, countered, sold elsewhere, or kept it, and the final price |
 
-## Privacy
+## Privacy and data use
 
-Offers are stored anonymously (coin, grade, amount, buyer type, and the first 3 digits of the ZIP) to build regional averages. No names, dealer names, or account data are collected.
+We store each check anonymously: the coin, grade, certification, offer amount, buyer type, how the offer was made, the reason for selling if you mention it, the first 3 digits of your ZIP code, and any outcome you report. We never collect names, contact details, full addresses, or which dealer made an offer.
+
+This data powers the regional comparisons you see, and Coinsel may publish or license **aggregated** statistics built from it (for example, "dealers in the Chicago area pay about 72% of retail on Morgan dollars"). Aggregates are never based on fewer than 5 offers, and individual checks are never sold. Full policy: https://www.coinsel.io/privacy
 
 ## Limits
 
-Free, rate-limited per IP. Values are estimates from public sales data, not appraisals or grades.
+Free, rate-limited per IP. Values are estimates from public sales and price-guide data, not appraisals or grades.
 
 ## License
 
