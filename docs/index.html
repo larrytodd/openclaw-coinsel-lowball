@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coinsel Lowball Check — OpenClaw plugin for fair coin offers</title>
+<meta name="description" content="Free OpenClaw plugin that tells you if a dealer or pawn shop coin offer is a lowball, what to counter with, and where to sell for more. Powered by Coinsel.">
+<link rel="canonical" href="https://larrytodd.github.io/openclaw-coinsel-lowball/">
+<!-- Google Search Console: paste your verification tag on the next line -->
+<!-- <meta name="google-site-verification" content="PASTE_CODE_HERE"> -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Coinsel Lowball Check — is that coin offer fair?">
+<meta property="og:description" content="An OpenClaw plugin that checks coin offers against sold comps, the PCGS price guide and melt value, then suggests a counter.">
+<meta property="og:url" content="https://larrytodd.github.io/openclaw-coinsel-lowball/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Coinsel Lowball Check",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (OpenClaw)",
+  "description": "OpenClaw plugin that checks whether a coin offer is fair, suggests a counter-offer, and finds better buyers nearby.",
+  "url": "https://larrytodd.github.io/openclaw-coinsel-lowball/",
+  "downloadUrl": "https://github.com/larrytodd/openclaw-coinsel-lowball",
+  "license": "https://opensource.org/licenses/MIT",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": { "@type": "Organization", "name": "Coinsel", "url": "https://www.coinsel.io" }
+}
+</script>
+<style>
+  :root {
+    --bg: #0b0a08; --panel: #16140f; --line: #2a2620;
+    --text: #ece6da; --muted: #a79f90; --accent: #d9a441; --code: #1d1a14;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 48px 16px 64px; }
+  a { color: var(--accent); }
+  h1 { font-size: 2.1rem; line-height: 1.2; margin: 0 0 12px; }
+  h2 { font-size: 1.35rem; margin: 44px 0 12px; border-top: 1px solid var(--line); padding-top: 28px; }
+  .lede { font-size: 1.15rem; color: var(--muted); margin: 0 0 24px; }
+  pre, code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.92rem; }
+  pre { background: var(--code); border: 1px solid var(--line); border-radius: 8px;
+    padding: 14px 16px; overflow-x: auto; }
+  code { background: var(--code); padding: 1px 5px; border-radius: 4px; }
+  pre code { background: none; padding: 0; }
+  .chat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+  .chat p { margin: 0 0 10px; }
+  .chat p:last-child { margin: 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  ul { padding-left: 22px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 0; }
+  .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; text-decoration: none;
+    border: 1px solid var(--accent); }
+  .btn.primary { background: var(--accent); color: #1a1408; font-weight: 600; }
+  footer { margin-top: 56px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 20px; }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<h1>Coinsel Lowball Check</h1>
+<p class="lede">An OpenClaw plugin that tells you whether a cash offer for a coin is fair, what to counter with, and where to get more — before you say yes.</p>
+
+<div class="btns">
+  <a class="btn primary" href="https://www.coinsel.io/lowball-check">Try the Lowball Check on Coinsel</a>
+  <a class="btn" href="https://github.com/larrytodd/openclaw-coinsel-lowball">View source on GitHub</a>
+</div>
+
+<h2>What it does</h2>
+<p>Tell your OpenClaw agent what a dealer, pawn shop, or coin-show buyer offered you. The plugin checks recent sold comps, the PCGS price guide and live melt value through <a href="https://www.coinsel.io">Coinsel, a price-intelligence service for graded coins and currency</a>, and returns:</p>
+<ul>
+  <li>A verdict: lowball, below fair, fair, or strong</li>
+  <li>What the coin is actually worth, and where that number comes from</li>
+  <li>Melt value for silver and gold coins</li>
+  <li>A typical fair dealer-offer range, adjusted for raw vs. certified coins</li>
+  <li>A counter-offer and exactly what to say</li>
+  <li>Nearby <a href="https://www.coinsel.io/dealers">coin dealers</a> and upcoming <a href="https://www.coinsel.io/shows">coin shows</a> when the offer is low</li>
+  <li>How buyers in your area typically price, once enough local data exists</li>
+</ul>
+
+<h2>Install</h2>
+<pre><code>openclaw plugins install openclaw-coinsel-lowball</code></pre>
+<p>No API key or configuration needed.</p>
+
+<h2>Example</h2>
+<div class="chat">
+  <p><strong>You:</strong> The pawn shop offered me $28 for an 1881-S Morgan dollar, PCGS MS63. I'm in 60025.</p>
+  <p><strong>Agent:</strong> 🚩 Lowball: $28 for 1881-S Morgan dollar (MS63). Retail value $110 (PCGS price guide, MS63). Melt value $44.22. The offer is 25% of retail; a typical fair dealer offer is $66–$88.</p>
+  <p>Counter at $85. What to say: "PCGS guide is $110 on this coin. I can do $85 today."</p>
+  <p>Where to get a better offer: a dealer 2.3 miles away, and a coin show this weekend.</p>
+</div>
+<p>Later, tell your agent what happened ("I got $80 at another dealer") and it logs the result.</p>
+
+<h2>Tools</h2>
+<table>
+  <tr><th>Tool</th><th>What it does</th></tr>
+  <tr><td><code>coin_lowball_check</code></td><td>Prices the offer. Required: <code>coin</code>, <code>offer_usd</code>. Optional: <code>grade</code>, <code>certified</code>, <code>grading_service</code>, <code>zip</code>, <code>buyer_type</code>, <code>offer_channel</code>, <code>sale_reason</code>.</td></tr>
+  <tr><td><code>coin_offer_outcome</code></td><td>Logs what you did afterwards: sold, countered, sold elsewhere, or kept it, and the final price.</td></tr>
+</table>
+
+<h2>Where the numbers come from</h2>
+<p>Certified coins are priced against recent sold results and the PCGS guide; you can look up any slab yourself with the <a href="https://www.coinsel.io/tools/lookup">PCGS cert lookup</a>. Raw gold and silver are priced against melt, which is a floor rather than a market price. If you're shopping rather than selling, Coinsel also lists <a href="https://www.coinsel.io/coins-under-guide-value">certified coins priced below guide value</a>.</p>
+
+<h2>Privacy and data use</h2>
+<p>Each check is stored anonymously: the coin, grade, certification, offer amount, buyer type, how the offer was made, the reason for selling if you mention it, the first 3 digits of your ZIP code, and any outcome you report. Names, contact details, full addresses, and which dealer made an offer are never collected.</p>
+<p>This data powers the regional comparisons, and Coinsel may publish or license aggregated statistics built from it. Aggregates are never based on fewer than 5 offers, and individual checks are never sold. Full policy: <a href="https://www.coinsel.io/privacy">Coinsel privacy policy</a>.</p>
+
+<h2>Limits</h2>
+<p>Free, rate-limited per IP. Values are estimates from public sales and price-guide data, not appraisals or grades.</p>
+
+<footer>
+  MIT © Coinsel · <a href="https://www.coinsel.io">coinsel.io</a> · <a href="https://github.com/larrytodd/openclaw-coinsel-lowball">GitHub</a>
+</footer>
+
+</main>
+</body>
+</html>
